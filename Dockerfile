@@ -1,7 +1,6 @@
 # Use the official ASP.NET runtime as a base image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 80
 
 # Copy the .csproj and restore 
 COPY LabraryManagement.csproj .
