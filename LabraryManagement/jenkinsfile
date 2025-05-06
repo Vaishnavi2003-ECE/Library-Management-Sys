@@ -13,11 +13,18 @@ pipeline {
                 git 'https://github.com/Vaishnavi2003-ECE/Library-Management-Sys.git'
             }
         }
+        stage('Build') {
+            steps {
+                dir('LabraryManagement') {
+                    sh 'dotnet build LabraryManagement.sln'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
                 bat "docker build -t library-management ."
             }
+
         }
 
         stage('Stop and Remove Old Container') {
