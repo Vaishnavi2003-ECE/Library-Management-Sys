@@ -20,6 +20,7 @@ pipeline {
                     sh 'dotnet build LabraryManagement.sln'
             }
         }
+     }
 
         stage('Build Docker Image') {
             steps {
