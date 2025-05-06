@@ -17,7 +17,7 @@ pipeline {
     stage('Build') {
             steps {
                 dir('LibraryManagement') {
-                    bat 'dotnet build LibraryManagement.sln'
+                    bat 'dotnet build LibraryManagement'
             }
         }
      }
