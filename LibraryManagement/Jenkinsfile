@@ -16,8 +16,8 @@ pipeline {
 
     stage('Build') {
             steps {
-                dir('C:\Users\vaish\source\repos\Library-Management-Sys\LibraryManagement') {
-                    bat 'dotnet build LibraryManagement.sln'
+                dir('LibraryManagement') {
+                    bat 'dotnet build LibraryManagement'
             }
         }
      }
