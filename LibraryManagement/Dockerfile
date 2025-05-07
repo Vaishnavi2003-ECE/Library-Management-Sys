@@ -3,14 +3,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the csproj and restore
-COPY LibaryManagement .
-RUN dotnet restore LibraryManagement
+COPY LibaryManagement.csproj .
+RUN dotnet restore LibraryManagement.csproj
 
 # Copy the rest of the source
 COPY . .
 
 # Publish to /app/publish
-RUN dotnet publish LibraryManagement -c Release -o /app/publish
+RUN dotnet publish LibraryManagement.csproj -c Release -o /app/publish
 
 # Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
