@@ -2,23 +2,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy the csproj and restore
-COPY LibraryManagement.csproj .
-RUN dotnet restore LibraryManagement.csproj
+# Copy csproj and restore dependencies
+COPY LibraryManagement.csproj ./
+RUN dotnet restore
 
-# Copy the rest of the source
-COPY . .
-
-# Publish to /app/publish
-RUN dotnet publish LibraryManagement.csproj -c Release -o /app/publish
+# Copy the entire project and publish
+COPY . ./
+RUN dotnet publish LibraryManagement.csproj -c Release -o /app/publish --no-restore
 
 # Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Copy published output from build stage
 COPY --from=build /app/publish .
 
-# Run the app
 ENTRYPOINT ["dotnet", "LibraryManagement.dll"]
 
