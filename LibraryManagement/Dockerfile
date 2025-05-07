@@ -2,19 +2,23 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy csproj and restore dependencies
-COPY LibraryManagement.csproj ./
-RUN dotnet restore
+# Copy the csproj and restore
+COPY LabraryManagement.csproj .
+RUN dotnet restore LabraryManagement.csproj
 
-# Copy the entire project and publish
-COPY . ./
-RUN dotnet publish LibraryManagement.csproj -c Release -o /app/publish --no-restore
+# Copy the rest of the source
+COPY . .
+
+# Publish to /app/publish
+RUN dotnet publish LabraryManagement.csproj -c Release -o /app/publish
 
 # Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
+# Copy published output from build stage
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "LibraryManagement.dll"]
+# Run the app
+ENTRYPOINT ["dotnet", "LabraryManagement.dll"]
 
