@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t library-management ."
+                bat "docker build -f LibraryManagement/Dockerfile -t library-management ."
             }
         }
 
