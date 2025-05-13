@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the csproj and restore
-COPY LibraryManagement.csproj .
+COPY LibraryManagement/LibraryManagement.csproj .
 RUN dotnet restore LibraryManagement.csproj
 
 # Copy the rest of the source
