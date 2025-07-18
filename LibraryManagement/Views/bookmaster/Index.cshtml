@@ -1,0 +1,151 @@
+﻿@{
+    Layout = null;
+}
+@model IEnumerable<LibraryManagement.Models.bookmasterModel>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Master</title>
+  <style>
+    body {
+       font-family: Arial, sans-serif;
+       margin: 20px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+       background-color: #f8f9fa;
+    }
+
+    .container {
+       width: 400px;
+       background: white;
+       padding: 20px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+       border-radius: 5px;
+    }
+
+    h2 {
+       text-align: center;
+       margin-bottom: 20px;
+    }
+
+    label {
+       font-weight: bold;
+       display: block;
+       margin-top: 10px;
+    }
+
+    input {
+       width: 90%;
+       padding: 10px;
+       margin-top: 5px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+     }
+
+    .btn-container {
+       display: flex;
+       justify-content: center;
+       margin-top: 20px;
+    }
+
+    .container {
+       width: 80%;
+       margin: auto;
+       text-align: left;
+    }
+
+    table {
+       width: 100%;
+       border-collapse: collapse;
+       margin-top: 10px;
+    }
+
+    th, td {
+       border: 1px solid black;
+       padding: 10px;
+       text-align: center;
+    }
+
+    th {
+       background-color: #f4f4f4;
+    }
+
+    .btn {
+       width: 48%;
+       padding: 10px;
+       border: none;
+       color: white;
+       cursor: pointer;
+       border-radius: 5px;
+       margin-left: 5px;
+    }
+
+    .add-btn {
+       background-color: green;
+    }
+
+    .delete-btn {
+       background-color: red;
+    }
+  </style>
+  </head>
+<body>
+  <div class="container">
+    <h2>BookMaster</h2>
+       <form method="post" action="@Url.Action("Index", "bookmaster")">
+          <label for="BookId">BookID</label>
+          <input type="text" id="BookId" name="BookId" placeholder="Enter BookID">
+
+          <label for="BookName">BookName</label>
+          <input type="text" id="BookName" name="BookName" placeholder="Enter BookName">
+
+          <label for="Author">Author</label>
+          <input type="text" id="Author" name="Author" placeholder="Enter AuthorName">
+
+          <label for="Quantity">Quantity</label>
+          <input type="number" id="Quantity" name="Quantity" placeholder="Enter Quantity">
+
+          <div class="btn-container">
+            <button type="submit" class="btn add-btn">Add</button>   
+       </form>
+          </div>
+          <br>
+  <div class="container">
+   @*  <form method="post" action="@Url.Action("Delete", "bookmaster")"> *@
+    <table>
+       <thead>
+          <tr>
+            <th>Delete</th>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Quntity</th>
+          </tr>
+       </thead>
+       <tbody>
+         @foreach (var book in Model)  
+         {
+           <tr>
+             <td>
+                 <form method="post" action="@Url.Action("Delete", "bookmaster")" onsubmit="return confirm('Are you sure, you to want to delete this book?');">
+                     <input type="hidden" name="id" value="@book.BookID" />
+                     <button type="submit" class="btn delete-btn">Delete</button>
+                 </form>
+             </td>
+                  <td>@book.BookID</td>
+                  <td>@book.BookName</td>
+                  <td>@book.Author</td>
+                  <td>@book.Quantity</td>
+                 
+           </tr>
+         }
+       </tbody>
+    </table>
+    @* </form> *@
+   </div>
+</body>
+</html>

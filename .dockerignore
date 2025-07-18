@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+**/*.user
+**/*.pubxml
+**/*.pdb
+**/*.cache
+**/*.map
+.vs/

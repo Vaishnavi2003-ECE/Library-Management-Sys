@@ -1,0 +1,118 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results - Books</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+      
+    body {
+       font-family: Arial, sans-serif;
+       margin: 0;
+       padding: 0;
+       background-color: #f4f4f4;
+    }
+
+    h2 {
+       text-align: center;
+       margin-top: 20px;
+    }
+
+    table {
+       width: 90%;
+       margin: 20px auto;
+       border-collapse: collapse;
+       background-color: white;
+    }
+
+    table th, table td {
+       padding: 10px;
+       border: 1px solid #ddd;
+       text-align: left;
+    }
+
+    table th {
+       background-color: #f4f4f4;
+    }
+
+    .btn {
+       padding: 8px 16px;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+       background-color: #008000;
+       border: none;
+       cursor: pointer;
+    }
+
+    .btn-primary {
+       background-color: #008000;
+    }
+
+    .btn-success {
+       background-color: #008000;
+    }
+
+    .text-center {
+       text-align: center;
+       margin-top: 20px;
+    }
+
+    .no-results {
+       text-align: center;
+       margin-top: 20px;
+       color: #888;
+    }
+  </style>
+  </head>
+<body>
+   <div id="book-list">
+     <h2>Search Books</h2>
+        <form method="get" action="@Url.Action("return", "borrow")"></form>
+     <br/>
+      <table>
+         <thead>
+            <tr>
+               <th>BookID</th>
+               <th>BookName</th>
+               <th>Author</th>
+               <th>Quantity</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            @foreach (var book in Model)
+            {
+              <tr>
+                   <td>@book.BookID</td>
+                   <td>@book.BookName</td>
+                   <td>@book.Author</td>
+                   <td>Available: @book.Quantity <br />Requested: @ViewBag.RequestedQuantity</td>
+                   <td>
+                       <form method="post" action="@Url.Action("BorrowBook", "borrow")" onsubmit="return confirm('Are you sure, you want to borrow this book');">
+                           <input type="hidden" name="BookID" value="@book.BookID" />
+                           <input type="hidden" name="UserID" value="@ViewBag.UserID" />
+                           <input type="hidden" name="Quantity" value="ViewBag.RequestedQuantity" />
+                           <button type="submit" class="btn submit-btn">Borrow</button>
+                       </form>
+                   </td>
+              </tr>
+            }
+         </tbody>
+      </table>
+   </div>
+   <br>
+   <div id="no-results" class="no-results" style="display: none;">
+      <p>No books found for your search.</p>
+   </div>
+
+   <div class="text-center">
+        <a href="@Url.Action("Index", "return")" class="btn btn-success">Confirm Borrow</a>
+   </div>
+
+</body>
+</html>
